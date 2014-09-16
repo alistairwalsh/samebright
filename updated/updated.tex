@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\bibliographystyle{plain}
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{latexsym}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyref}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false,pdfborder={0 0 0},}
+\usepackage{textcomp}
+\usepackage{longtable}
+\usepackage{multirow,booktabs}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{ffqqqq}{rgb}{1.0,0.0,0.0}
+
+\definecolor{qqqqff}{rgb}{0.0,0.0,1.0}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+
+
+\begin{document}
+
+\title{Calculating relative brightness in Python for Schizophrenia research}
+
+\author{Alistair Walsh\\ Swinburne University of Technology  \and Phil Sumner\\ Swinburne University of Technology}
+
+\date{\today}
+
+
+
+\maketitle 
+
+
+
+
+
+
+Often the visual and semantic systems of Schizophrenia patients are affected by their illness \cite{David1993263}. Due to this, researchers often need to quantify and modify the brightness of images used in experiments. While MATLAB is commonly used in academia, Python is an easy to learn and versatile program for this work. This program was written because of a specific needs in one experiment and is offered here to help others with similair requirements.
+
+\section*{Brightness and Semantics}
+The brightness of an image may draw attention for being bright rather than any semantic meaning of the image content. In semantic research this may cause a confound where eye tracking is being used to determine aspects of attention and semantic processing. Comparing two images and quantifying their brightness and then being able to modify the brightness of the images so they are of equal brightness is a common task. When there are tens or even hundreds of images, a programatic solution is desirable. Not just for the sake of saving wear and tear on research assistants, but the risk of human error in a boring and repetative task is high.
+
+\section*{Computer Images}
+A computer image is a grid of pixels, with each pixel being three colours at individual brightnesses. This could be visualised as a matrix of tuples (56,255,4). A simple brightness value can be derived from the average of the three colour values and then an average of all the pixels in the image. This doesn{'}t account for local bright areas within the image but is a reasonable starting point. Another approach would be to visualise each pixel colour in its own matrix and average each matrix before averaging the three colour brightness values.
+
+\section*{Python Code to calculate brightness}
+The Python Imaging Library (PIL) has functions for many of these common tasks.
+
+
+\begin{lstlisting}
+
+from PIL import Image
+import csv
+#create a fake brightness value for now
+brightness = 255/2
+#setup a .csv file to write to
+with open('brightness.csv', 'wb') as csvfile:
+    # create a file name variable so later when there is a list of files, it can iterate over the list 
+    for item in file_list:
+        fname =  item
+    # Load the image into imag
+        imag = Image.open(fname)
+    ## Show me the image
+        imag.show()
+        #write the file_name to .csv and add brightness value
+        brightness_writer = csv.writer(csvfile, delimiter=',',quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        brightness_writer.writerow([item] + [brightness])
+
+\end{lstlisting}
+
+\section{Step by Step process}
+
+
+
+
+
+\bibliography{full_article}
+
+
+\end{document}
+
